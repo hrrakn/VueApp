@@ -61,7 +61,12 @@
                     v-model="registerForm.password"
                 />
                 <label for="password-confirmation">Password(confirm)</label>
-                <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation"/>
+                <input
+                    type="password"
+                    class="form__item"
+                    id="password-confirmation"
+                    v-model="registerForm.password_confirmation"
+                />
                 <div class="form__button">
                     <button type="submit" class="button button--inverse">
                         register
@@ -82,19 +87,27 @@ export default {
                 password: ""
             },
             registerForm: {
-                name: '',
-                email: '',
-                password: '',
-                password_confirmation: ''
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: ""
             }
-        }
+        };
     },
     methods: {
-        login() {
-            console.log(this.loginForm);
+        async login() {
+            // authストアのloginアクションを呼び出す
+            await this.$store.dispatch("auth/login", this.loginForm);
+
+            // トップページに移動する
+            this.$router.push("/");
         },
-        register() {
-            console.log(this.registerForm)
+        async register() {
+            // authストアのresigterアクションを呼び出す
+            await this.$store.dispatch("auth/register", this.registerForm);
+
+            // トップページに移動する
+            this.$router.push("/");
         }
     }
 };
